@@ -28,11 +28,14 @@ fabric.properties
 #################
 ## Android Studio
 #################
-.gradle/
-local.properties
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
 .DS_Store
-build/
-.apk
+/build
+*.apk
+*.ap_
 
 #################
 ## IntelliJ
@@ -45,6 +48,7 @@ build/
 #################
 .classpath
 .project
+.settings
 
 #################
 ## Windows

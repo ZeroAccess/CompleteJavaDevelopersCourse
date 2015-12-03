@@ -30,6 +30,7 @@ public class Main {
         System.out.println();
 
         DeluxeBurger orderThree = new DeluxeBurger("sesame seed bun","angus beef",BigDecimal.valueOf(11.00),"Sprite","medium fries");
+//        orderThree.addTomato();
         System.out.println("Hey, you're a Deluxe kind of man. You want to have delicious toppings dropping from your mouth to your beard for safe keeping later.");
         System.out.println("Your bread type is " + orderThree.getBreadType() + ", meat is " + orderThree.getMeat()
                 + " the base price is " + NumberFormat.getCurrencyInstance().format(orderThree.getBasePrice()) + " with your additions being "
