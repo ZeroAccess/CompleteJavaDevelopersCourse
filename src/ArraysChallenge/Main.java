@@ -43,7 +43,6 @@ public class Main {
         if (input == null || array.length <= 1) {
             return;
         }
-
         for (int i = 0; i < array.length / 2; i++) {
             int temp = array[i]; //swap numbers
             array[i] = array[array.length - 1];
