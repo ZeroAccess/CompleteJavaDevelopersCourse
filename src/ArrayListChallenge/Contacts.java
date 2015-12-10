@@ -6,16 +6,14 @@ package ArrayListChallenge;
 public class Contacts {
     private String firstName;
     private String lastName;
-    private int mobilePhoneNumber;
-    private int homePhoneNumber;
-    private String notes;
+    private String mobilePhoneNumber;
+    private String homePhoneNumber;
 
-    public Contacts(String firstName, String lastName, int mobilePhoneNumber, int homePhoneNumber, String notes) {
+    public Contacts(String firstName, String lastName, String mobilePhoneNumber, String homePhoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobilePhoneNumber = mobilePhoneNumber;
         this.homePhoneNumber = homePhoneNumber;
-        this.notes = notes;
     }
 
     public String getFirstName() {
@@ -26,15 +24,12 @@ public class Contacts {
         return lastName;
     }
 
-    public int getMobilePhoneNumber() {
+    public String getMobilePhoneNumber() {
         return mobilePhoneNumber;
     }
 
-    public int getHomePhoneNumber() {
+    public String getHomePhoneNumber() {
         return homePhoneNumber;
     }
 
-    public String getNotes() {
-        return notes;
-    }
 }

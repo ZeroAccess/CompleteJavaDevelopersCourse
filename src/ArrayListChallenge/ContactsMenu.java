@@ -1,9 +1,6 @@
 package ArrayListChallenge;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -67,6 +64,7 @@ public class ContactsMenu {
         System.out.println("\t 5 - Display Contact Information");
         System.out.println("\t 6 - Close Contacts");
         System.out.println("\t 7 - Save Contacts");
+        System.out.println("\t 8 - Load Contacts");
     }
 
     private static void displayAllContacts() {
@@ -83,13 +81,11 @@ public class ContactsMenu {
         System.out.print("Enter last name: ");
         String lastName = scanner.nextLine();
         System.out.print("Enter Mobile Number: ");
-        int mobilePhoneNumber = scanner.nextInt();
+        String mobilePhoneNumber = scanner.next();
         System.out.print("Enter Home Number: ");
-        int homePhoneNumber = scanner.nextInt();
-        System.out.println("Enter some notes: ");
-        String notes = scanner.nextLine();
+        String homePhoneNumber = scanner.next();
         scanner.nextLine();
-        contactsArrayList.add(new Contacts(firstName, lastName, mobilePhoneNumber, homePhoneNumber, notes));
+        contactsArrayList.add(new Contacts(firstName, lastName, mobilePhoneNumber, homePhoneNumber));
     }
 
     private static void modifyContact() {
@@ -102,17 +98,15 @@ public class ContactsMenu {
                 if (index >= 0) {
                     System.out.println("Enter Contact Information");
                     System.out.print("Enter first name: ");
-                    String firstName = scanner.nextLine();
+                    String firstName = scanner.next();
                     System.out.print("Enter last name: ");
-                    String lastName = scanner.nextLine();
+                    String lastName = scanner.next();
                     System.out.print("Enter Mobile Number: ");
-                    int mobilePhoneNumber = scanner.nextInt();
+                    String mobilePhoneNumber = scanner.next();
                     System.out.print("Enter Home Number: ");
-                    int homePhoneNumber = scanner.nextInt();
-                    System.out.println("Enter some notes: ");
-                    String notes = scanner.nextLine();
+                    String homePhoneNumber = scanner.next();
                     scanner.nextLine();
-                    contactsArrayList.set(index, new Contacts(firstName, lastName, mobilePhoneNumber, homePhoneNumber, notes));
+                    contactsArrayList.set(index, new Contacts(firstName, lastName, mobilePhoneNumber, homePhoneNumber));
                 }
             }
         }
@@ -139,23 +133,23 @@ public class ContactsMenu {
     }
 
     private static void displayContact() {
-        System.out.println("Enter name of person you would like to view");
+        System.out.println("Enter the first name of person you would like to view");
         String nameToRetrieve = scanner.nextLine();
         for (Contacts contacts : contactsArrayList) {
             if (contacts.getFirstName().equals(nameToRetrieve)) {
                 int index = contactsArrayList.indexOf(contacts);
                 System.out.println(contacts.getFirstName() + " " + contacts.getLastName() + "\n Mobile: " + contacts.getMobilePhoneNumber()
-                        + "\n Home: " + contacts.getHomePhoneNumber() + "\n Notes: " + contacts.getNotes());
+                        + "\n Home: " + contacts.getHomePhoneNumber());
             }
         }
     }
 
     private static void saveContactList() {
         try {
-            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("dataForArrayListChallenge.txt")));
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("src/ArrayListChallenge/dataForArrayListChallenge.txt")));
             for (Contacts contacts : contactsArrayList) {
-                out.println(contacts.getFirstName() + " " + contacts.getLastName() + "\n Mobile: " + contacts.getMobilePhoneNumber()
-                        + "\n Home: " + contacts.getHomePhoneNumber() + "\n Notes: " + contacts.getNotes());
+                out.println(contacts.getFirstName() + " " + contacts.getLastName() + " " + contacts.getMobilePhoneNumber()
+                        + " " + contacts.getHomePhoneNumber());
             }
             out.close();
             System.out.println("Data has been saved");
@@ -165,8 +159,20 @@ public class ContactsMenu {
     }
 
     private static void loadContactList() {
-        //TODO Finish This!
-        System.out.println("Got a headache, going home");
+
+        File temp = new File("src/ArrayListChallenge/dataForArrayListChallenge.txt");
+        try (Scanner scanner = new Scanner(temp)) {
+            while (scanner.hasNext()) {
+                String firstName = scanner.next();
+                String lastName = scanner.next();
+                String mobilePhoneNumber = scanner.next();
+                String homePhoneNumber = scanner.next();
+                contactsArrayList.add(new Contacts(firstName, lastName, mobilePhoneNumber, homePhoneNumber));
+            }
+            scanner.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
