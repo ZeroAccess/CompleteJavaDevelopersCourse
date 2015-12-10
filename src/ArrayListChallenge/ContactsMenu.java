@@ -1,8 +1,8 @@
 package ArrayListChallenge;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -46,6 +46,12 @@ public class ContactsMenu {
                 case 6:
                     quit = true;
                     MobilePhone.timerDelay(3);
+                    break;
+                case 7:
+                    saveContactList();
+                    break;
+                case 8:
+                    loadContactList();
                     break;
             }
         }
@@ -144,11 +150,23 @@ public class ContactsMenu {
         }
     }
 
-    private void saveContactList(File fileName) throws FileNotFoundException {
-        PrintWriter printWriter = new PrintWriter(new FileOutputStream(fileName));
-        for (Contacts contacts : contactsArrayList) {
-            printWriter.println(contacts.getFirstName() + " " + contacts.getLastName() + "\n Mobile: " + contacts.getMobilePhoneNumber()
-                    + "\n Home: " + contacts.getHomePhoneNumber() + "\n Notes: " + contacts.getNotes());
+    private static void saveContactList() {
+        try {
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("dataForArrayListChallenge.txt")));
+            for (Contacts contacts : contactsArrayList) {
+                out.println(contacts.getFirstName() + " " + contacts.getLastName() + "\n Mobile: " + contacts.getMobilePhoneNumber()
+                        + "\n Home: " + contacts.getHomePhoneNumber() + "\n Notes: " + contacts.getNotes());
+            }
+            out.close();
+            System.out.println("Data has been saved");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    private static void loadContactList() {
+        //TODO Finish This!
+        System.out.println("Got a headache, going home");
+    }
 }
+
