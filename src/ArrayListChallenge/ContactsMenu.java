@@ -8,17 +8,18 @@ import java.util.Scanner;
  */
 public class ContactsMenu {
     static Scanner scanner = new Scanner(System.in);
-    static int selection = scanner.nextInt();
+
     ArrayList<Contacts> contactsArrayList = new ArrayList<Contacts>();
 
     public static void displayMenu() {
-        System.out.println("displayMenu");
-        printInstructions();
         boolean quit = false;
+        printInstructions();
 
         while (!quit) {
-            System.out.println("Contacts Menu");
-            printInstructions();
+            System.out.println("\nContacts Menu");
+            System.out.println("Select 0 for instructions");
+            int selection = scanner.nextInt();
+            scanner.nextLine();
 
             switch (selection) {
                 case 0:
@@ -40,13 +41,15 @@ public class ContactsMenu {
                     displayContact();
                     break;
                 case 6:
+                    quit = true;
+                    MobilePhone.timerDelay(3);
                     break;
             }
         }
     }
 
     private static void printInstructions() {
-        System.out.println("\n Press ");
+        System.out.println("\n Press # for option");
         System.out.println("\t 0 - Print choice options.");
         System.out.println("\t 1 - Display All Contacts");
         System.out.println("\t 2 - Add Contact");

@@ -6,6 +6,6 @@ package ArrayListChallenge;
 public class Main {
 
     public static void main(String[] args) {
-        MobilePhone.displayContactsMenu();
+        MobilePhone.go();
     }
 }
