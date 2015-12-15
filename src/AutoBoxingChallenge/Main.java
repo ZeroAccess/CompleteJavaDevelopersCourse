@@ -1,63 +1,29 @@
 package AutoBoxingChallenge;
 
-import java.util.Scanner;
 
 /**
  * Created by robertsg on 12/11/2015.
  */
 public class Main {
-    private static Scanner scanner = new Scanner(System.in);
+    static Bank newBank = new Bank();
 
     public static void main(String[] args) {
-        boolean quit = false;
-
-        Customer test = new Customer(123, "John", 123456789);
-        Branch.customerArrayList.add(test);
-        test.deposit(20.0);
-
-        System.out.println("Welcome to the Banking Deluxe Program");
-        System.out.println("Please select your option");
-        System.out.println("Instructions are option 0");
-
-        while (!quit) {
-            System.out.println("\n-| Current Location: Admin panel");
-            int option = scanner.nextInt();
-
-            switch (option) {
-                case 0:
-                    printAdminInstructions();
-                    break;
-                case 1:
-                    displayBankMenu();
-                    break;
-                case 2:
-                    displayBranchMenu();
-                    break;
-                case 3:
-                    quit = true;
-                    break;
-                default:
-                    System.out.println("Please select a valid option. Hit 0 for instructions.");
-                    break;
-            }
-        }
-    }
-
-    public static void printAdminInstructions() {
-        System.out.println(
-                "-| 0: Print Instructions\n"
-                        + "-| 1: Login to Bank menu\n"
-                        + "-| 2: Login to Branch menu\n"
-                        + "-| 3: Logout");
-    }
-
-    private static void displayBankMenu() {
-        Bank newBank = new Bank();
+        testCases();
         newBank.bankMenu();
     }
 
-    private static void displayBranchMenu() {
-        Branch newBranch = new Branch();
-        newBranch.branchMenu();
+    private static void testCases() {
+        Branch branchTest = new Branch(987654321, "Atlanta");
+        Branch branchTest2 = new Branch(578964123, "San Francisco");
+        Customer customerTest = new Customer("John Roberts", 1000);
+        Customer customerTest2 = new Customer("John Smith", 500);
+        Customer customerTest3 = new Customer("Suzy Q", 5000);
+
+        newBank.setBranchesArrayList(branchTest);
+        newBank.setBranchesArrayList(branchTest2);
+
+        branchTest.setCustomerArrayList(customerTest);
+        branchTest.setCustomerArrayList(customerTest2);
+        branchTest2.setCustomerArrayList(customerTest3);
     }
 }
