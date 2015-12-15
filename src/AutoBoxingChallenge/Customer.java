@@ -12,6 +12,7 @@ public class Customer {
     public Customer(String name, double initialAmount) {
         this.name = name;
         this.initialAmount = initialAmount;
+        depositTransactionsArrayList(initialAmount);
     }
 
     public String getName() {

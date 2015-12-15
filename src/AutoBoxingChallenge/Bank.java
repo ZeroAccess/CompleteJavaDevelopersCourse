@@ -50,6 +50,9 @@ public class Bank {
                     withdraw();
                     break;
                 case 10:
+                    getBalance();
+                    break;
+                case 11:
                     quit = true;
                     break;
                 default:
@@ -71,7 +74,8 @@ public class Bank {
                         + "-| 7: Transfer Customer to different branch\n"
                         + "-| 8: Deposit\n"
                         + "-| 9: Withdraw\n"
-                        + "-| 10: Quit");
+                        + "-| 10: Get Balance\n"
+                        + "-| 11: Quit");
     }
 
     private void createBranch() {
@@ -150,7 +154,12 @@ public class Bank {
         return -1;
     }
 
-    private Customer isCustomerAtBranch(String branchName, String customerName) {
+    private Customer isCustomerAtBranch() {
+        scanner.useDelimiter("\\n");
+        System.out.println("What's your home branch?");
+        String branchName = scanner.next();
+        System.out.println("What's your name?");
+        String customerName = scanner.next();
         for (Branch branch : branchesArrayList) {
             if (branchName.equals(branch.getBranchName())) {
                 for (Customer customer : branch.getCustomerArrayList()) {
@@ -189,12 +198,7 @@ public class Bank {
     }
 
     private void deposit() {
-        scanner.useDelimiter("\\n");
-        System.out.println("What's your home branch?");
-        String branchName = scanner.next();
-        System.out.println("What's your name?");
-        String customerName = scanner.next();
-        Customer customer = isCustomerAtBranch(branchName, customerName);
+        Customer customer = isCustomerAtBranch();
         if (customer != null) {
             System.out.println("How much would you like to deposit?");
             double depositAmount = scanner.nextDouble();
@@ -206,35 +210,40 @@ public class Bank {
     }
 
     private void withdraw() {
-        scanner.useDelimiter("\\n");
-        System.out.println("What's your home branch?");
-        String branchName = scanner.next();
-        System.out.println("What's your name?");
-        String customerName = scanner.next();
-        Customer customer = isCustomerAtBranch(branchName, customerName);
+        Customer customer = isCustomerAtBranch();
         if (customer != null) {
             System.out.println("How much would you like to withdraw?");
             double withdrawAmount = scanner.nextDouble();
             customer.withdrawTransactionsArrayList(withdrawAmount);
-
         } else {
             System.out.println("We couldn't find you at that branch.");
         }
     }
 
     private void viewTransactions() {
-        scanner.useDelimiter("\\n");
-        System.out.println("What's your home branch?");
-        String branchName = scanner.next();
-        System.out.println("What's your name?");
-        String customerName = scanner.next();
-        Customer customer = isCustomerAtBranch(branchName, customerName);
+        Customer customer = isCustomerAtBranch();
         if (customer != null) {
-            System.out.println(customer.getTransactionsArrayList());
+            if (customer.getTransactionsArrayList().isEmpty()) {
+                System.out.println("Account has no activity");
+            } else {
+                System.out.println(customer.getTransactionsArrayList());
+            }
         } else {
             System.out.println("We couldn't find you at that branch.");
         }
+    }
 
+    private void getBalance() {
+        Customer customer = isCustomerAtBranch();
+        if (customer != null) {
+            int i = 0;
+            double balance = 0;
+            while (i < customer.getTransactionsArrayList().size()) {
+                balance += customer.getTransactionsArrayList().get(i);
+                i++;
+            }
+            System.out.println("Your balance is " + balance);
+        }
     }
 
     public ArrayList<Branch> getBranchesArrayList() {
