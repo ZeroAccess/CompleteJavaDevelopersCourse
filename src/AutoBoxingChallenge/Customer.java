@@ -45,13 +45,22 @@ public class Customer {
         double accountNumber = Branch.findCustomer(name);
         if (accountNumber >= 0) {
             System.out.println("If Statement inside view Transactions -> called");
+            for (double i = 0; i < 100; i++) {
+                deposit(i);
+            }
+            for (double j = 0; j < 20; j++) {
+                withdraw(j);
+            }
             for (int i = 0; i < transactionsArrayList.size(); i++) {
-                System.out.println("Transactions: " + this.transactionsArrayList.get(i));
+                System.out.println("Transactions: " + transactionsArrayList.get(i));
             }
         } else {
             System.out.println("There is no account for that person");
         }
+    }
 
+    public void getBalance() {
+        
     }
 
     public ArrayList<Double> getTransactions() {
