@@ -84,6 +84,7 @@ public class Bank {
         int accountNumber = scanner.nextInt();
         System.out.println("Enter Branch's Name");
         String name = scanner.next();
+        Customer customer = isCustomerAtBranch();
         if (findBranch(name) >= 0 || findBranch(accountNumber) >= 0) {
             System.out.println("Branch is already on file");
         } else {
