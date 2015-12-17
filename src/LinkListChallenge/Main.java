@@ -12,6 +12,7 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     static LinkedList<Song> playList = new LinkedList<>();
     static ArrayList<Album> albumArrayList = new ArrayList<>();
+    static ListIterator<Song> listIterator = playList.listIterator();
 
     public static void main(String[] args) {
         System.out.println("|- Awesome Boom Box 2001 |-");
@@ -68,7 +69,6 @@ public class Main {
         }
     }
 
-
     private static void printInstructions() {
         System.out.println("|- 0: Print Instructions");
         System.out.println("|- 1: Skip Forward");
@@ -86,12 +86,8 @@ public class Main {
     }
 
     private static void skipForward() {
-        ListIterator<Song> listIterator = playList.listIterator();
-        if (playList.isEmpty()) {
-            System.out.println("Add some songs to your playlist");
-            return;
-        } else {
-            System.out.println("Now playing " + listIterator.next().getTitle());
+        if (listIterator.hasNext()) {
+            listIterator.next(); //throws CurrentModificationException
         }
     }
 
@@ -207,6 +203,12 @@ public class Main {
         albumArrayList.get(0).getSongLinkedList().add(new Song("TestSong4", 500));
         albumArrayList.get(0).getSongLinkedList().add(new Song("TestSong5", 600));
         albumArrayList.get(0).getSongLinkedList().add(new Song("TestSong7", 700));
+
+        playList.add(findSong("TestSong1"));
+        playList.add(findSong("TestSong2"));
+        playList.add(findSong("TestSong3"));
+        playList.add(findSong("TestSong4"));
+        playList.add(findSong("TestSong5"));
 
         albumArrayList.get(1).getSongLinkedList().add(new Song("We said don't buy this", 100));
         albumArrayList.get(1).getSongLinkedList().add(new Song("How are you listening?", 100));
