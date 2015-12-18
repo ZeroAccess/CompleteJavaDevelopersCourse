@@ -1,4 +1,4 @@
-package LinkListChallenge;
+package LinkedListChallenge;
 
 /**
  * Created by robertsg on 12/17/2015.

@@ -1,4 +1,4 @@
-package LinkListChallenge;
+package LinkedListChallenge;
 
 import java.util.LinkedList;
 

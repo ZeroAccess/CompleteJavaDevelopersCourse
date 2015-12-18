@@ -1,4 +1,4 @@
-package LinkListChallenge;
+package LinkedListChallenge;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,7 +12,7 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     static LinkedList<Song> playList = new LinkedList<>();
     static ArrayList<Album> albumArrayList = new ArrayList<>();
-    static ListIterator<Song> listIterator = playList.listIterator();
+
 
     public static void main(String[] args) {
         System.out.println("|- Awesome Boom Box 2001 |-");
@@ -29,36 +29,27 @@ public class Main {
                     printInstructions();
                     break;
                 case 1:
-                    skipForward();
-                    break;
-                case 2:
-                    skipBackward();
-                    break;
-                case 3:
-                    replaySong();
-                    break;
-                case 4:
                     listSongs();
                     break;
-                case 5:
+                case 2:
                     listAlbums();
                     break;
-                case 6:
+                case 3:
                     listPlayList();
                     break;
-                case 7:
+                case 4:
                     addAlbum();
                     break;
-                case 8:
+                case 5:
                     addSong();
                     break;
-                case 9:
-                    removeSong();
-                    break;
-                case 10:
+                case 6:
                     addSongToPlaylist();
                     break;
-                case 11:
+                case 7:
+                    controlPanel();
+                    break;
+                case 8:
                     System.out.println("Quitting Application");
                     quit = true;
                     break;
@@ -71,32 +62,89 @@ public class Main {
 
     private static void printInstructions() {
         System.out.println("|- 0: Print Instructions");
-        System.out.println("|- 1: Skip Forward");
-        System.out.println("|- 2: Skip Backward");
-        System.out.println("|- 3: Replay Song");
-        System.out.println("|- 4: List Songs");
-        System.out.println("|- 5: List Albums");
-        System.out.println("|- 6: List Playlist");
-        System.out.println("|- 7: Add Album");
-        System.out.println("|- 8: Add Song");
-        System.out.println("|- 9: Remove Song");
-        System.out.println("|- 10: Add song to playlist");
-        System.out.println("|- 11: Quit");
+        System.out.println("|- 1: List Songs");
+        System.out.println("|- 2: List Albums");
+        System.out.println("|- 3: List Playlist");
+        System.out.println("|- 4: Add Album");
+        System.out.println("|- 5: Add Song");
+        System.out.println("|- 6: Add song to playlist");
+        System.out.println("|- 7: Control Panel");
+        System.out.println("|- 8: Quit");
 
     }
 
-    private static void skipForward() {
-        if (listIterator.hasNext()) {
-            listIterator.next(); //throws CurrentModificationException
+    private static void controlPanel() {
+        ListIterator<Song> listIterator = playList.listIterator();
+        System.out.println("Welcome to Your Control Panel");
+        boolean quit = false;
+        boolean goingForward = true;
+
+        if (playList.isEmpty()) {
+            System.out.println("Add some songs to your playlist");
+        } else {
+            System.out.println("Now playing " + listIterator.next().getTitle());
+            System.out.println("Press option");
+            System.out.println("<-1 | 2 | 3->");
+            System.out.println("0: Exit | 4:Remove");
         }
-    }
 
-    private static void skipBackward() {
+        while (!quit) {
+            int option = scanner.nextInt();
+            scanner.nextLine();
 
-    }
-
-    private static void replaySong() {
-
+            switch (option) {
+                case 0:
+                    System.out.println("Returning to Admin Panel");
+                    quit = true;
+                    break;
+                case 1:
+                    if (goingForward) {
+                        if (listIterator.hasPrevious()) {
+                            listIterator.previous();
+                        }
+                        goingForward = false;
+                    }
+                    if (listIterator.hasPrevious()) {
+                        System.out.println("Now Playing " + listIterator.previous().getTitle());
+                    } else {
+                        System.out.println("You're at the start of your list.");
+                        goingForward = true;
+                    }
+                    break;
+                case 2:
+                    if (goingForward) {
+                        System.out.println("Now Playing " + listIterator.previous().getTitle());
+                        goingForward = false;
+                    } else {
+                        System.out.println("Now Playing " + listIterator.next().getTitle());
+                        goingForward = true;
+                    }
+                    break;
+                case 3:
+                    if (!goingForward) {
+                        if (listIterator.hasNext()) {
+                            listIterator.next();
+                        }
+                        goingForward = true;
+                    }
+                    if (listIterator.hasNext()) {
+                        System.out.println("Now Playing " + listIterator.next().getTitle());
+                    } else {
+                        System.out.println("You're at the end of your list.");
+                        goingForward = false;
+                    }
+                    break;
+                case 4:
+                    System.out.println("Do you want to remove current song?");
+                    String answer = scanner.next();
+                    scanner.nextLine();
+                    if (answer.equals("yes")) {
+                        listIterator.remove();
+                        System.out.println("Removed song");
+                    }
+                    break;
+            }
+        }
     }
 
     private static void listSongs() {
@@ -168,18 +216,17 @@ public class Main {
         scanner.nextLine();
         if (findAlbum(albumName)) {
             for (Album album : albumArrayList) {
-                Song newSong = new Song(songName, duration);
-                album.getSongLinkedList().add(newSong);
-                System.out.println("Song " + newSong + " has been added to album " + albumName);
+                if (albumName.equals(album.getName())) {
+                    Song newSong = new Song(songName, duration);
+                    album.getSongLinkedList().add(newSong);
+                    System.out.println("Song " + songName + " has been added to album " + albumName);
+                }
             }
         } else {
             System.out.println("Was not able to add song check album name");
         }
     }
 
-    private static void removeSong() {
-
-    }
 
     private static void addSongToPlaylist() {
         scanner.useDelimiter("\\n");
