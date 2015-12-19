@@ -25,6 +25,7 @@ public class Main {
         System.out.println("What do you want I to be?");
         int i = scanner.nextInt();
         if (i > 0) {
+            //return input = "Your input was greater than 0";   //Same exact thing as the below just split it so you can see
             input = "Your input was greater than 0";
             return input;
         } else {
