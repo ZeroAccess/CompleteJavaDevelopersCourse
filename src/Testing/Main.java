@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Created by robertsg on 12/18/2015.
+ * Trying to help explain how returns work
  */
 public class Main {
     static String input;
