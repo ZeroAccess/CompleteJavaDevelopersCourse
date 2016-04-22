@@ -1,48 +1,84 @@
 package InterfacesChallenge;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by robertsg on 4/21/2016.
+ * Created by robertsg on 4/22/2016.
  */
-public class Monster implements ISave {
+public class Monster implements ISaveable {
+    private String name;
+    private int hitPoints;
+    private int strength;
+    private String weapon;
 
-    String type;
-    int health;
-
-    public Monster() {
+    public Monster(String name, int hitPoints, int strength, String weapon) {
+        this.name = name;
+        this.hitPoints = hitPoints;
+        this.strength = strength;
+        this.weapon = weapon;
     }
 
-    public Monster(String type, int health) {
-        this.type = type;
-        this.health = health;
+    public String getName() {
+        return name;
     }
 
-    public int getHealth() {
-        return health;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setHealth(int health) {
-        this.health -= health;
+    public int getHitPoints() {
+        return hitPoints;
     }
 
-    public void checkLife(Monster monster) {
-        if (monster.health <= 0) {
-            System.out.println("You have slained the evil creeper!");
-        }
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
     }
 
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public String getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
+    }
+
+    @Override
     public String toString() {
-        return "Monster.toString() has been overridden";
+        return "Monster{" +
+                "name='" + name + '\'' +
+                ", hitPoints=" + hitPoints +
+                ", strength=" + strength +
+                ", weapon='" + weapon + '\'' +
+                '}';
     }
 
     @Override
-    public ArrayList returnList() {
-        return null;
+    public List<String> write() {
+        List<String> values = new ArrayList<String>();
+        values.add(0, this.name);
+        values.add(1, "" + this.hitPoints);
+        values.add(2, "" + this.strength);
+        values.add(3, this.weapon);
+
+        return values;
     }
 
     @Override
-    public void populateList() {
-
+    public void read(List<String> savedValues) {
+        if (savedValues != null && savedValues.size() > 0) {
+            this.name = savedValues.get(0);
+            this.hitPoints = Integer.parseInt(savedValues.get(1));
+            this.strength = Integer.parseInt(savedValues.get(2));
+            this.weapon = savedValues.get(3);
+        }
     }
 }

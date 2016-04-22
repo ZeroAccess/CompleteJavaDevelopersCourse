@@ -1,89 +1,70 @@
 package InterfacesChallenge;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Created by robertsg on 4/21/2016.
+ * Created by robertsg on 4/22/2016.
  */
 public class Main {
-    static boolean gameMode = false;
-
     public static void main(String[] args) {
-        Player player1 = new Player("Calix", 100, "sword");
-        Monster monster1 = new Creeper("creeper", 40);
-        runGame(player1, monster1);
+
+        Player calix = new Player("Calix", "Warrior", 20, 5);
+        System.out.println(calix.toString());
+        saveObject(calix);
+        calix.setHitPoints(40);
+        System.out.println(calix);
+        calix.setWeapon("Diamond Sword");
+        saveObject(calix);
+//        loadObject(calix);
+        System.out.println(calix);
+
+        ISaveable zombie = new Monster("Zombie", 15, 5, "Zombie Flesh");
+//        zombie.getStrength(); doesn't work
+//        System.out.println(((Monster) zombie).getStrength()); does work you have to cast type it to the class
+        System.out.println(zombie);
+        saveObject(zombie);
+
+//        readValues();
     }
 
-    private static void runGame(Player player, Monster monster) {
+    public static ArrayList<String> readValues() {
+        ArrayList<String> values = new ArrayList<String>();
+
         Scanner scanner = new Scanner(System.in);
-
+        boolean quit = false;
         int index = 0;
-
         System.out.println("Choose\n" +
-                "1 to hit monster\n" +
-                "2 to hit player\n" +
+                "1 to enter a string\n" +
                 "0 to quit");
 
-        while (!gameMode) {
+        while (!quit) {
             System.out.println("Choose an option: ");
-            int playerChoice = scanner.nextInt();
+            int choice = scanner.nextInt();
             scanner.nextLine();
-            switch (playerChoice) {
+            switch (choice) {
                 case 0:
-                    gameMode = true;
-                    System.out.println("The game has been ended and saved");
+                    quit = true;
                     break;
                 case 1:
-                    player.dealDamage(player, monster);
-                    System.out.println(player.getName() + " hit the " + monster.type + " with " + player.getWeapon() + " " + monster.type + "now has " + monster.getHealth() + " health");
-                    checkHealth(player, monster);
-                    break;
-                case 2:
-                    player.setHealth(20);
-                    System.out.println(monster.type + " hit " + player.getName() + " now has " + player.getHealth() + " health");
-                    checkHealth(player, monster);
+                    System.out.println("Enter a string: ");
+                    String stringInput = scanner.nextLine();
+                    values.add(index, stringInput);
+                    index++;
                     break;
             }
         }
-        System.out.println("Play Again?");
+        return values;
     }
 
-    private static void checkHealth(Player player, Monster monster) {
-        if (player.getHealth() <= 0) {
-            System.out.println("You have lost");
-            gameMode = true;
-        } else if (monster.getHealth() <= 0) {
-            System.out.println("You won!");
-            gameMode = true;
+    public static void saveObject(ISaveable objectToSave) {
+        for (int i = 0; i < objectToSave.write().size(); i++) {
+            System.out.println("Saving " + objectToSave.write().get(i) + " to storage device");
         }
     }
 
-//    public static ArrayList<String> readValues() {
-//        ArrayList<String> values = new ArrayList<>();
-//
-//        Scanner scanner = new Scanner(System.in);
-//        boolean quit = false;
-//        int index = 0;
-//        System.out.println("Choose\n" +
-//        "1 to enter a string\n" +
-//        "0 to quit");
-//
-//        while(!quit) {
-//            System.out.println("Choose an option: ");
-//            int choice = scanner.nextInt();
-//            scanner.nextLine();
-//            switch (choice) {
-//                case 0:
-//                    quit = true;
-//                    break;
-//                case 1:
-//                    System.out.println("Enter a string: ");
-//                    String stringInput = scanner.nextLine();
-//                    values.add(index, stringInput);
-//                    index++;
-//                    break;
-//            }
-//        }
-//        return values;
-//    }
+    public static void loadObject(ISaveable objectToLoad) {
+        ArrayList<String> values = readValues();
+        objectToLoad.read(values);
+    }
 }
