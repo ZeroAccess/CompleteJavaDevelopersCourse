@@ -54,5 +54,22 @@ public class Album {
         return false;
     }
 
+    private class SongList {
+        private ArrayList<Song> songs;
+
+        public SongList() {
+            this.songs = new ArrayList<Song>();
+        }
+
+        public boolean add(Song song) {
+            if (songs.contains(song)) {
+                return false;
+            }
+            this.songs.add(song);
+            return true;
+        }
+
+    }
+
 
 }
