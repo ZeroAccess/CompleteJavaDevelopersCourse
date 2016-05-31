@@ -38,13 +38,11 @@ public class Main {
         LinkedList<Song> playList = new LinkedList<Song>();
         albums.get(0).addToPlayList("You can't do it right", playList);
         albums.get(0).addToPlayList("Holy man", playList);
-        albums.get(0).addToPlayList("Speed king", playList); //does not exist
         albums.get(0).addToPlayList(9, playList);
 
         albums.get(1).addToPlayList(8, playList);
         albums.get(1).addToPlayList(3, playList);
         albums.get(1).addToPlayList(2, playList);
-        albums.get(1).addToPlayList(24, playList); //There is no track 24
 
         play(playList);
     }
