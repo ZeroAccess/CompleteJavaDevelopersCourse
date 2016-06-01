@@ -1,4 +1,4 @@
-package AbstractClasses;
+package Abstraction;
 
 /**
  * Created by robertsg on 5/31/2016.
@@ -9,7 +9,14 @@ public class Penguin extends Bird {
     }
 
     @Override
-    public void fly() {
-        System.out.println("I'm not very good at that, can I go for a swim instead?");
+    public void eat() {
+        super.eat();
     }
+
+    @Override
+    public void breathe() {
+        super.breathe();
+    }
+
+
 }

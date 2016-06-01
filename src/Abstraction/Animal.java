@@ -1,4 +1,4 @@
-package AbstractClasses;
+package Abstraction;
 
 /**
  * Created by robertsg on 5/31/2016.
@@ -12,7 +12,7 @@ public abstract class Animal {
 
     public abstract void eat();
 
-    public abstract void breath();
+    public abstract void breathe();
 
     public String getName() {
         return name;
